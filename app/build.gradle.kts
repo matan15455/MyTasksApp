@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.mytasksapp"
-    compileSdk = 35
+    compileSdk = 36
 
     buildFeatures {
         viewBinding = true
