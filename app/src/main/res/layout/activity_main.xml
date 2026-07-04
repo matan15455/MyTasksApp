@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="My Tasks"
+        android:title="המשימות שלי"
         android:titleTextColor="@android:color/white"/>
 
     <androidx.fragment.app.FragmentContainerView

@@ -30,9 +30,9 @@ public class StatsFragment extends Fragment {
         int completed = db.getCompletedTasksCount();
         int remaining = total - completed;
 
-        binding.tvTotal.setText("Total tasks: " + total);
-        binding.tvCompleted.setText("Completed: " + completed);
-        binding.tvRemaining.setText("Remaining: " + remaining);
+        binding.tvTotal.setText("כמות משימות: " + total);
+        binding.tvCompleted.setText("הושלמו: " + completed);
+        binding.tvRemaining.setText("נותרו: " + remaining);
 
         binding.btnBack.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp()

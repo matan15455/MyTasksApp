@@ -58,14 +58,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 Task taskToDelete = taskList.get(currentPosition);
 
                 new AlertDialog.Builder(v.getContext())
-                        .setTitle("Delete Task")
-                        .setMessage("Are you sure you want to delete this task?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
+                        .setTitle("מחיקת משימה")
+                        .setMessage("האם אתה בטוח שברצונך למחוק את המשימה?")
+                        .setPositiveButton("כן", (dialog, which) -> {
                             databaseHelper.deleteTask(taskToDelete.getId());
                             taskList.remove(currentPosition);
                             notifyItemRemoved(currentPosition);
                         })
-                        .setNegativeButton("No", null)
+                        .setNegativeButton("לא", null)
                         .show();
             }
         });

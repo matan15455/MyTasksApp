@@ -21,14 +21,14 @@
             android:id="@+id/tvTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Task title"
+            android:text="כותרת משימה"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Task description"
+            android:text="תיאור משימה"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -36,6 +36,6 @@
         android:id="@+id/btnDeleteTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:text="מחק" />
 
 </LinearLayout>

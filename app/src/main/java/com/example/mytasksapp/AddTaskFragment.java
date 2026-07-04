@@ -34,14 +34,14 @@ public class AddTaskFragment extends Fragment {
             String description = binding.etDescription.getText().toString().trim();
 
             if (TextUtils.isEmpty(title)) {
-                Toast.makeText(getContext(), "Please enter task title", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "נא להזין כותרת למשימה", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Task task = new Task(title, description, false);
             databaseHelper.addTask(task);
 
-            Toast.makeText(getContext(), "Task saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "המשימה נשמרה", Toast.LENGTH_SHORT).show();
 
             Navigation.findNavController(v).navigateUp();
         });
