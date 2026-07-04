@@ -9,15 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mytasksapp.adapter.TaskAdapter;
+import com.example.mytasksapp.database.DatabaseHelper;
+import com.example.mytasksapp.database.Task;
 import com.example.mytasksapp.databinding.FragmentTasksBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TasksFragment extends Fragment {
 
     private FragmentTasksBinding binding;
+    private ArrayList<Task> taskList;
     private TaskAdapter adapter;
+    private DatabaseHelper databaseHelper;
 
     public TasksFragment() {
     }
@@ -28,7 +31,10 @@ public class TasksFragment extends Fragment {
 
         binding = FragmentTasksBinding.inflate(inflater, container, false);
 
+        databaseHelper = new DatabaseHelper(getContext());
+        taskList = databaseHelper.getAllTasks();
 
+        adapter = new TaskAdapter(taskList);
 
         binding.rvTasks.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvTasks.setAdapter(adapter);
