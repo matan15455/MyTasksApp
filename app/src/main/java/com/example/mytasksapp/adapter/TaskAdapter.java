@@ -3,6 +3,7 @@ package com.example.mytasksapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -10,16 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytasksapp.R;
+import com.example.mytasksapp.database.DatabaseHelper;
 import com.example.mytasksapp.database.Task;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
-    private final List<Task> taskList;
+    private final ArrayList<Task> taskList;
+    private final DatabaseHelper databaseHelper;
 
-    public TaskAdapter(List<Task> taskList) {
+    public TaskAdapter(ArrayList<Task> taskList, DatabaseHelper databaseHelper) {
         this.taskList = taskList;
+        this.databaseHelper = databaseHelper;
     }
 
     @NonNull
@@ -36,6 +40,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         holder.tvTaskTitle.setText(task.getTitle());
         holder.cbCompleted.setChecked(task.isCompleted());
+
+        holder.cbCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            task.setCompleted(isChecked);
+            databaseHelper.updateTask(task);
+        });
+
+        holder.btnDeleteTask.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                Task taskToDelete = taskList.get(currentPosition);
+
+                databaseHelper.deleteTask(taskToDelete.getId());
+                taskList.remove(currentPosition);
+                notifyItemRemoved(currentPosition);
+            }
+        });
     }
 
     @Override
@@ -47,12 +68,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         CheckBox cbCompleted;
         TextView tvTaskTitle;
+        Button btnDeleteTask;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
 
             cbCompleted = itemView.findViewById(R.id.cbCompleted);
             tvTaskTitle = itemView.findViewById(R.id.tvTaskTitle);
+            btnDeleteTask = itemView.findViewById(R.id.btnDeleteTask);
         }
     }
 }

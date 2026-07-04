@@ -35,7 +35,7 @@ public class TasksFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
         taskList = databaseHelper.getAllTasks();
 
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList, databaseHelper);
 
         binding.rvTasks.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvTasks.setAdapter(adapter);
