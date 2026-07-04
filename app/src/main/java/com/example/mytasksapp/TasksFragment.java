@@ -12,6 +12,7 @@ import com.example.mytasksapp.adapter.TaskAdapter;
 import com.example.mytasksapp.database.DatabaseHelper;
 import com.example.mytasksapp.database.Task;
 import com.example.mytasksapp.databinding.FragmentTasksBinding;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,10 @@ public class TasksFragment extends Fragment {
 
         binding.rvTasks.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvTasks.setAdapter(adapter);
+
+        binding.btnAddTask.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_tasksFragment_to_addTaskFragment)
+        );
 
         return binding.getRoot();
     }
