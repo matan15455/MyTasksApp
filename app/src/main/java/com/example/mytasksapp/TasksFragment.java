@@ -44,6 +44,11 @@ public class TasksFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_tasksFragment_to_addTaskFragment)
         );
 
+        binding.btnStatistics.setOnClickListener(v ->
+                Navigation.findNavController(v)
+                        .navigate(R.id.action_tasksFragment_to_statsFragment)
+        );
+
         return binding.getRoot();
     }
 
