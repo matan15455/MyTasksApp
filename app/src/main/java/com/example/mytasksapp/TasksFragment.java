@@ -37,6 +37,14 @@ public class TasksFragment extends Fragment {
 
         adapter = new TaskAdapter(taskList, databaseHelper);
 
+        if (taskList.isEmpty()) {
+            binding.tvEmpty.setVisibility(View.VISIBLE);
+            binding.rvTasks.setVisibility(View.GONE);
+        } else {
+            binding.tvEmpty.setVisibility(View.GONE);
+            binding.rvTasks.setVisibility(View.VISIBLE);
+        }
+
         binding.rvTasks.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvTasks.setAdapter(adapter);
 
@@ -50,6 +58,15 @@ public class TasksFragment extends Fragment {
         );
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        taskList.clear();
+        taskList.addAll(databaseHelper.getAllTasks());
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mytasksapp.R;
@@ -39,6 +40,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         Task task = taskList.get(position);
 
         holder.tvTaskTitle.setText(task.getTitle());
+
+        holder.tvTaskDescription.setText(task.getDescription());
+
+        holder.cbCompleted.setOnCheckedChangeListener(null);
         holder.cbCompleted.setChecked(task.isCompleted());
 
         holder.cbCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -52,9 +57,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             if (currentPosition != RecyclerView.NO_POSITION) {
                 Task taskToDelete = taskList.get(currentPosition);
 
-                databaseHelper.deleteTask(taskToDelete.getId());
-                taskList.remove(currentPosition);
-                notifyItemRemoved(currentPosition);
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Delete Task")
+                        .setMessage("Are you sure you want to delete this task?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            databaseHelper.deleteTask(taskToDelete.getId());
+                            taskList.remove(currentPosition);
+                            notifyItemRemoved(currentPosition);
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
     }
@@ -68,6 +80,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         CheckBox cbCompleted;
         TextView tvTaskTitle;
+        TextView tvTaskDescription;
         Button btnDeleteTask;
 
         public TaskViewHolder(@NonNull View itemView) {
@@ -76,6 +89,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             cbCompleted = itemView.findViewById(R.id.cbCompleted);
             tvTaskTitle = itemView.findViewById(R.id.tvTaskTitle);
             btnDeleteTask = itemView.findViewById(R.id.btnDeleteTask);
+            tvTaskDescription = itemView.findViewById(R.id.tvTaskDescription);
         }
     }
 }

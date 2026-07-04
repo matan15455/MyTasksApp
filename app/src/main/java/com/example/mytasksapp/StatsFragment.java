@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.mytasksapp.database.DatabaseHelper;
 import com.example.mytasksapp.databinding.FragmentStatsBinding;
@@ -32,6 +33,10 @@ public class StatsFragment extends Fragment {
         binding.tvTotal.setText("Total tasks: " + total);
         binding.tvCompleted.setText("Completed: " + completed);
         binding.tvRemaining.setText("Remaining: " + remaining);
+
+        binding.btnBack.setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp()
+        );
 
         return binding.getRoot();
     }

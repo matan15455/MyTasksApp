@@ -46,6 +46,10 @@ public class AddTaskFragment extends Fragment {
             Navigation.findNavController(v).navigateUp();
         });
 
+        binding.btnBack.setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp()
+        );
+
         return binding.getRoot();
     }
 
